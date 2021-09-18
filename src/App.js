@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
-import Results  from './pages/Results';
+import Results from "./pages/Results";
+
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
           <Route path="/results">
             <Results />
           </Route>
-          <Route path = '/'>
+          <Route path="/">
             <Home />
           </Route>
         </Switch>
