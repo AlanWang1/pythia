@@ -21,20 +21,52 @@ export default function Home() {
   };
 
   const getPhotos = async () => {
-
-    const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems', {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+    const response = await fetch(
+      "https://photoslibrary.googleapis.com/v1/mediaItems",
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
-    });
+    );
 
-    const photoData = await response.json()
+    const photoData = await response.json();
 
-    setUserPhotos(photoData);
+    const photoUrls = photoData.mediaItems.map((item) => item.baseUrl);
+
+    setUserPhotos(photoUrls);
 
     console.log(photoData);
+  };
+
+  const analyzeImages = async () => {
+
+    const response = await fetch(
+      " https://vision.googleapis.com/v1/images:annotate",
+      {
+        requests: [
+          {
+            features: [
+              {
+                type: "WEB_DETECTION",
+              },
+            ],
+            image: {
+              source: {
+                imageUri:
+                  "https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg",
+              },
+            },
+          },
+        ],
+      }
+    );
+
+    console.log(response);
+
+
   };
 
   return (
@@ -46,12 +78,17 @@ export default function Home() {
         onSuccess={googleSuccess}
         onFailure={googleFailure}
         scope="https://www.googleapis.com/auth/photoslibrary"
-        cookePolicy="single_host_origin"
+        cookiePolicy="single_host_origin"
       />
       {user}
 
       <button onClick={getPhotos}>Photos</button>
 
+      <button onClick={analyzeImages}>Analyze Photos </button>
+
+      {userPhotos
+        ? userPhotos.map((photoUrls) => <img src={photoUrls} />)
+        : null}
       {accessToken}
     </div>
   );
