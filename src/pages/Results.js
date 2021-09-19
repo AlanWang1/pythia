@@ -36,6 +36,24 @@ export default function Results(props) {
     return personality_score;
   }
 
+  const astrological = (categories) => {
+    const element;
+    const fire_score = (categories[17] + categories[18] + categories[14]);
+    const water_score = (categories[5] + categories[20] + categories[12]);
+    const earth_score = (categories[19] + categories[0] + categories[11]);
+    const air_score = (categories[16] + categories[10] + categories[13]);
+
+    if(fire_score >= water_score && fire_score >= earth_score && fire_score >= air_score) {
+        element = "fire";
+    } else if(water_score >= earth_score && water_score >= air_score) {
+        element = 'water';
+    } else if(earth_score >= air_score) {
+        element = 'earth'
+    } else {
+        element = 'air';
+    } 
+  }
+
 
   return (
     <div>
