@@ -3,9 +3,28 @@ import "./Results.css";
 import logo from "../img/Logo.svg";
 import * as strings from '../constants/strings';
 
+export default function Results(props) {
+
+  const personality = (categories) => {
+
+    const personality_score = '';
+
+    if (categories[5] > (props.dominantColor.length - categories[5])) {
+        personality_score+='E'
+    } else {
+        personality_score+='I'
+    }
+
+    if (categories[14] + categories[18] + categories[13] > categories[21] + categories[20] + categories[0]) {
+        personality_score+='S'
+    } else {
+        personality_score+='N'
+    }
 
 
-export default function Results() {
+
+  }
+
   return (
     <div>
       <section className="hero is-large has-text-centered">
