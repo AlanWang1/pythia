@@ -1,0 +1,1 @@
+import { PastGenerate } from "../constants/strings";
