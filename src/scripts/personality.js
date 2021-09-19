@@ -1,0 +1,16 @@
+import { INTJ_sum } from "../constants/strings";
+import { INTP_sum } from "../constants/strings";
+import { INFJ_sum } from "../constants/strings";
+import { INFP_sum } from "../constants/strings";
+import { ISTJ_sum } from "../constants/strings";
+import { ISTP_sum } from "../constants/strings";
+import { ISFJ_sum } from "../constants/strings";
+import { ISFP_sum } from "../constants/strings";
+import { ENTJ_sum } from "../constants/strings";
+import { ENTP_sum } from "../constants/strings";
+import { ENFJ_sum } from "../constants/strings";
+import { ENFP_sum } from "../constants/strings";
+import { ESTJ_sum } from "../constants/strings";
+import { ESTP_sum } from "../constants/strings";
+import { ESFJ_sum } from "../constants/strings";
+import { ESFP_sum } from "../constants/strings";
