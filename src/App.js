@@ -198,7 +198,12 @@ function App() {
       <Router>
         <Switch>
           <Route path="/results">
-            <Results user={user} />
+            <Results 
+            user={user} 
+            dominantColors = {dominantColors}
+            mostCommonLabels = {mostCommonLabels}
+            googlePhotoContentCategories = {googlePhotoContentCategories}
+            />
           </Route>
           <Route path="/">
             {(dominantColors && googlePhotoContentCategories)? <Redirect to='/results' /> : <Home handleLogin={handleLogin} fetchPhotos={fetchPhotos} />}

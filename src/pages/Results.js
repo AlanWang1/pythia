@@ -1,6 +1,9 @@
 import React from "react";
 import "./Results.css";
 import logo from "../img/Logo.svg";
+import * as strings from '../constants/strings';
+
+
 
 export default function Results() {
   return (
@@ -15,24 +18,26 @@ export default function Results() {
 
       <section className = 'section'>
           <h1 className = 'title'> Who you are</h1>
-          <h2 className = 'subtitle'> </h2>
+          <h2 className = 'subtitle'> {strings.INFP_sum }</h2>
       </section>
     
       <section className = 'section'>
           <h1 className = 'title'> Your place in the universe</h1>
-          <h2 className = 'subtitle'> </h2>
+          <h2 className = 'subtitle'> {strings.Leo_sum} </h2>
       </section>
 
       <section className = 'section'>
           <h1 className = 'title'> Common themes of your life</h1>
-          <h2 className = 'subtitle'> </h2>
+          <h2 className = 'subtitle'> {strings.PastGenerate('nature', 'smiles')[0]} </h2>
+          <h2 className = 'subtitle'> {strings.PastGenerate('social gathering', 'clouds')[2]} </h2>
       </section>
 
       <section className = 'section'>
           <h1 className = 'title'> Your past and present</h1>
-          <h2 className = 'subtitle'> </h2>
+          <h2 className = 'subtitle'>{strings.TopGenerate('buildings', 'roads')[0]} </h2>
+          <h2 className = 'subtitle'>{strings.TopGenerate('paper', 'stones')[8]} </h2>
       </section>
-      
+
     </div>
   );
 }
