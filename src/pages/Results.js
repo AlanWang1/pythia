@@ -38,6 +38,7 @@ export default function Results(props) {
 
   const astrological = (categories) => {
     const element;
+    const astro_sign;
     const fire_score = (categories[17] + categories[18] + categories[14]);
     const water_score = (categories[5] + categories[20] + categories[12]);
     const earth_score = (categories[19] + categories[0] + categories[11]);
@@ -51,7 +52,44 @@ export default function Results(props) {
         element = 'earth'
     } else {
         element = 'air';
-    } 
+    }
+    
+    const color_arr = props.dominantColors;
+
+    const freqArray = [];
+
+        for (let i = 0; i < color_arr.length; i++){
+          if (freqArray.length != 0){
+            let found = false;
+            for (let j = 0; j < freqArray.length; j++) {
+              if (labels[i] === freqArray[j].name) {
+                freqArray[j].count++
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              freqArray.push({
+                name:labels[i],
+                count:1
+              })
+            }
+          } else {
+            freqArray.push({
+              name: labels[i],
+              count: 1
+            })
+          }
+        }
+    if (element == "fire") {
+
+    } else if (element == "water") {
+
+    } else if (element == "earth") {
+
+    } else {
+
+    }
   }
 
 
