@@ -7,23 +7,35 @@ export default function Results(props) {
 
   const personality = (categories) => {
 
-    const personality_score = '';
+    let personality_score = '';
 
-    if (categories[5] > (props.dominantColor.length - categories[5])) {
+    if (categories[5] >= (props.dominantColor.length - categories[5])) {
         personality_score+='E'
     } else {
         personality_score+='I'
     }
 
-    if (categories[14] + categories[18] + categories[13] > categories[21] + categories[20] + categories[0]) {
+    if (categories[14] + categories[18] + categories[13] >= categories[21] + categories[20] + categories[0]) {
         personality_score+='S'
     } else {
         personality_score+='N'
     }
 
+    if (categories[9] + categories[1] + categories[2] >= categories[11] + categories[0] + categories[20] ) {
+        personality_score+='T'
+    } else {
+        personality_score+='F'
+    }
 
-
+    if (categories[18] + categories[7] + categories[8] >= categories[2] + categories[0] + categories[10]) {
+        personality_score+='J'
+    } else {
+        personality_score+='P'
+    }
+    
+    return personality_score;
   }
+
 
   return (
     <div>
@@ -37,7 +49,7 @@ export default function Results(props) {
 
       <section className = 'section'>
           <h1 className = 'title'> Who you are</h1>
-          <h2 className = 'subtitle'> {strings.INFP_sum }</h2>
+          <h2 className = 'subtitle'> {strings[`${personality(props.googlePhotoContentCategories)}_sum`] }</h2>
       </section>
     
       <section className = 'section'>
