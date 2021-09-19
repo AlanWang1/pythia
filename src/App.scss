@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+$list1: #f72758, #f99651;
+
+@mixin gradient($direction, $list) {
+  background: -webkit-linear-gradient();
+}
+
+// Set your brand colors
+$purple: rgb(165, 120, 242);
+$pink: #fa7c91;
+$brown: black;
+$beige-light: rgb(235, 226, 220);
+$light-grey: rgba(255, 255, 255, 0.993);
+$gold: rgb(143,127,67);
+
+// Update Bulma's global variables
+$grey-dark: $beige-light;
+$grey-light: $light-grey;
+$primary: $gold;
+$link: $pink;
+$info: $gold;
+$widescreen-enabled: true;
+$fullhd-enabled: false;
+$family-primary: Raleway;
+$title-color: $beige-light;
+
+// Update some of Bulma's component variables
+$body-background-color: rgb(31,19,50);
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+$divider-background-color:rgb(200, 199, 199);
+
+
+// Import only what you need from Bulma
+
+@import "../node_modules/bulma/bulma.sass";
+

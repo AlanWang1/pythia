@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import "./App.css";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import "./App.scss";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import CONTENT_CATEGORIES from "./constants/contentCategories";
@@ -12,7 +12,8 @@ function App() {
   const [accessTokenGooglePhotos, setAccessTokenGooglePhotos] = useState(null);
   const [googlePhotoContentCategories, setGooglePhotoContentCategories] =
     useState(null);
-  const [useDominantColors, setDominantColors] = useState(null);
+  const [dominantColors, setDominantColors] = useState(null);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     if (user && accessTokenGooglePhotos) {
@@ -118,7 +119,7 @@ function App() {
             (2 + (dominantColor.green - COLORS[i].green)) ^
             (2 + (dominantColor.blue - COLORS[i].blue)) ^
             2 ^
-            (1 / 2);
+            (1 / 2);    
         }
         COLORS.sort((e1, e2) => e1.distance - e2.distance);
 
@@ -135,18 +136,16 @@ function App() {
   };
 
   return (
-    <div>
       <Router>
         <Switch>
           <Route path="/results">
             <Results user={user} />
           </Route>
           <Route path="/">
-            <Home handleLogin={handleLogin} fetchPhotos={fetchPhotos} />
+            {(dominantColors && googlePhotoContentCategories)? <Redirect to='/results' /> : <Home handleLogin={handleLogin} fetchPhotos={fetchPhotos} />}
           </Route>
         </Switch>
       </Router>
-    </div>
   );
 }
 
