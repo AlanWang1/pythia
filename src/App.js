@@ -13,6 +13,7 @@ function App() {
   const [googlePhotoContentCategories, setGooglePhotoContentCategories] =
     useState(null);
   const [dominantColors, setDominantColors] = useState(null);
+  const [mostCommonLabels, setMostCommonLabels] = useState(null);
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
@@ -82,7 +83,8 @@ function App() {
   };
 
   const fetchVisionAIData = async () => {
-    // put loading processing here
+
+    // finding dominant color
     const visionAIResponses = await Promise.all(
       userPhotos.map(async (url) => {
         const response = await fetch(
@@ -100,7 +102,6 @@ function App() {
                   features: [
                     {
                       type: "IMAGE_PROPERTIES",
-                      maxResults: 1000,
                     },
                   ],
                 },
@@ -128,6 +129,64 @@ function App() {
     );
     console.log(visionAIResponses);
     setDominantColors(visionAIResponses);
+
+    // finding image labels
+    const visionAILabels = await Promise.all(
+      userPhotos.map(async (url) => {
+        const response = await fetch(
+          "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA7CGhkhV3wm0OxJY_Sr2xdUvPBnECQepo",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              requests: [
+                {
+                  image: {
+                    source: {
+                      imageUri: url,
+                    },
+                  },
+                  features: [
+                    {
+                      type: "LABEL_DETECTION",
+                    },
+                  ],
+                },
+              ],
+            })
+          }
+        ).then((res) => res.json());
+        return response.responses[0].labelAnnotations.map((elem) => elem.description);
+        }));
+
+        const labels = [].concat.apply([], visionAILabels);
+
+        const freqArray = [];
+
+        for (let i = 0; i < labels.length; i++){
+          if (freqArray.length != 0){
+            let found = false;
+            for (let j = 0; j < freqArray.length; j++) {
+              if (labels[i] === freqArray[j].name) {
+                freqArray[j].count++
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              freqArray.push({
+                name:labels[i],
+                count:1
+              })
+            }
+          } else {
+            freqArray.push({
+              name: labels[i],
+              count: 1
+            })
+          }
+        }
+        freqArray.sort((elem1, elem2) => elem2.count - elem1.count);
+        setMostCommonLabels(freqArray[0].name, freqArray[1].name, freqArray[2].name, freqArray[3].name);
   };
 
   const handleLogin = (user, token) => {
@@ -150,3 +209,4 @@ function App() {
 }
 
 export default App;
+
