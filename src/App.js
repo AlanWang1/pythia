@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.scss";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
@@ -25,7 +30,8 @@ function App() {
 
   useEffect(() => {
     if (userPhotos) {
-      fetchVisionAIData();
+      fetchVisionAIColors();
+      fetchVisionAILabels();
     }
   }, [userPhotos]);
 
@@ -82,9 +88,7 @@ function App() {
     setGooglePhotoContentCategories(categoryCounts);
   };
 
-  const fetchVisionAIData = async () => {
-
-    // finding dominant color
+  const fetchVisionAIColors = async () => {
     const visionAIResponses = await Promise.all(
       userPhotos.map(async (url) => {
         const response = await fetch(
@@ -120,7 +124,7 @@ function App() {
             (2 + (dominantColor.green - COLORS[i].green)) ^
             (2 + (dominantColor.blue - COLORS[i].blue)) ^
             2 ^
-            (1 / 2);    
+            (1 / 2);
         }
         COLORS.sort((e1, e2) => e1.distance - e2.distance);
 
@@ -129,7 +133,11 @@ function App() {
     );
     console.log(visionAIResponses);
     setDominantColors(visionAIResponses);
+  };
 
+
+
+  const fetchVisionAILabels = async () => {
     // finding image labels
     const visionAILabels = await Promise.all(
       userPhotos.map(async (url) => {
@@ -152,41 +160,51 @@ function App() {
                   ],
                 },
               ],
-            })
+            }),
           }
         ).then((res) => res.json());
-        return response.responses[0].labelAnnotations.map((elem) => elem.description);
-        }));
+        console.log(response);
+        return response.responses[0].labelAnnotations.map(
+          (elem) => elem.description
+        );
+      })
+    );
 
-        const labels = [].concat.apply([], visionAILabels);
+    const labels = [].concat.apply([], visionAILabels);
 
-        const freqArray = [];
+    const freqArray = [];
 
-        for (let i = 0; i < labels.length; i++){
-          if (freqArray.length != 0){
-            let found = false;
-            for (let j = 0; j < freqArray.length; j++) {
-              if (labels[i] === freqArray[j].name) {
-                freqArray[j].count++
-                found = true;
-                break;
-              }
-            }
-            if (!found) {
-              freqArray.push({
-                name:labels[i],
-                count:1
-              })
-            }
-          } else {
-            freqArray.push({
-              name: labels[i],
-              count: 1
-            })
+    for (let i = 0; i < labels.length; i++) {
+      if (freqArray.length != 0) {
+        let found = false;
+        for (let j = 0; j < freqArray.length; j++) {
+          if (labels[i] === freqArray[j].name) {
+            freqArray[j].count++;
+            found = true;
+            break;
           }
         }
-        freqArray.sort((elem1, elem2) => elem2.count - elem1.count);
-        setMostCommonLabels(freqArray[0].name, freqArray[1].name, freqArray[2].name, freqArray[3].name);
+        if (!found) {
+          freqArray.push({
+            name: labels[i],
+            count: 1,
+          });
+        }
+      } else {
+        freqArray.push({
+          name: labels[i],
+          count: 1,
+        });
+      }
+    }
+
+    freqArray.sort((elem1, elem2) => elem2.count - elem1.count);
+    setMostCommonLabels([
+      freqArray[0].name,
+      freqArray[1].name,
+      freqArray[2].name,
+      freqArray[3].name
+    ]);
   };
 
   const handleLogin = (user, token) => {
@@ -195,23 +213,26 @@ function App() {
   };
 
   return (
-      <Router>
-        <Switch>
-          <Route path="/results">
-            <Results 
-            user={user} 
-            dominantColors = {dominantColors}
-            mostCommonLabels = {mostCommonLabels}
-            googlePhotoContentCategories = {googlePhotoContentCategories}
-            />
-          </Route>
-          <Route path="/">
-            {(dominantColors && googlePhotoContentCategories)? <Redirect to='/results' /> : <Home handleLogin={handleLogin} fetchPhotos={fetchPhotos} />}
-          </Route>
-        </Switch>
-      </Router>
+    <Router>
+      <Switch>
+        <Route path="/results">
+          <Results
+            user={user}
+            dominantColors={dominantColors}
+            mostCommonLabels={mostCommonLabels}
+            googlePhotoContentCategories={googlePhotoContentCategories}
+          />
+        </Route>
+        <Route path="/">
+          {dominantColors && googlePhotoContentCategories ? (
+            <Redirect to="/results" />
+          ) : (
+            <Home handleLogin={handleLogin} fetchPhotos={fetchPhotos} />
+          )}
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
 export default App;
-

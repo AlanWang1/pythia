@@ -9,7 +9,7 @@ export default function Results(props) {
 
     let personality_score = '';
 
-    if (categories[5] >= (props.dominantColor.length - categories[5])) {
+    if (categories[5] >= (props.dominantColors.length - categories[5])) {
         personality_score+='E'
     } else {
         personality_score+='I'
@@ -34,8 +34,7 @@ export default function Results(props) {
     }
     
     return personality_score;
-  }
-
+  }``
 
   return (
     <div>
@@ -47,7 +46,7 @@ export default function Results(props) {
         <h1 className="title is-1 is-primary"> Results </h1>
       </div>
 
-      <section className = 'section'>
+      <section className = 'section'>   
           <h1 className = 'title'> Who you are</h1>
           <h2 className = 'subtitle'> {strings[`${personality(props.googlePhotoContentCategories)}_sum`] }</h2>
       </section>
@@ -59,14 +58,12 @@ export default function Results(props) {
 
       <section className = 'section'>
           <h1 className = 'title'> Common themes of your life</h1>
-          <h2 className = 'subtitle'> {strings.PastGenerate('nature', 'smiles')[0]} </h2>
-          <h2 className = 'subtitle'> {strings.PastGenerate('social gathering', 'clouds')[2]} </h2>
+          <h2 className = 'subtitle'> {strings.PastGenerate(props.mostCommonLabels[0], props.mostCommonLabels[1])[Math.floor(Math.random()*4)]} </h2>
       </section>
 
       <section className = 'section'>
           <h1 className = 'title'> Your past and present</h1>
-          <h2 className = 'subtitle'>{strings.TopGenerate('buildings', 'roads')[0]} </h2>
-          <h2 className = 'subtitle'>{strings.TopGenerate('paper', 'stones')[8]} </h2>
+          <h2 className = 'subtitle'>{strings.TopGenerate(props.mostCommonLabels[2], props.mostCommonLabels[3])[Math.floor(Math.random()*4)]} </h2>
       </section>
 
     </div>
