@@ -53,6 +53,12 @@ const COLORS = [
     green: 255,
     blue: 0,
   },
+  {
+    color: "orange",
+    red: 255,
+    green:165,
+    blue: 0
+  }
 ];
 
 export default COLORS;

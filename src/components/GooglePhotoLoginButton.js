@@ -1,7 +1,9 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
+import env from 'react-dotenv'
 
 export default function GooglePhotoLoginButton(props) {
+
 
   const googlePhotosSuccess = (res) => {
     props.handleLogin(res?.profileObj.name, res?.tokenObj.access_token);
@@ -14,7 +16,7 @@ export default function GooglePhotoLoginButton(props) {
   return (
     <div>
       <GoogleLogin
-        clientId="537823722219-1mq1dl0uje8qd9j89kgspe08t1vicks4.apps.googleusercontent.com"
+        clientId={`${env.OAUTH_CLIENT_ID}`}
         buttonText="Sync Google Photos"
         onSuccess={googlePhotosSuccess}
         onFailure={googlePhotosFailure}

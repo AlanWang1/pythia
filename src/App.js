@@ -10,6 +10,7 @@ import Results from "./pages/Results";
 import CONTENT_CATEGORIES from "./constants/contentCategories";
 import COLORS from "./constants/colors";
 import { useState, useEffect } from "react";
+import env from 'react-dotenv';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -92,7 +93,7 @@ function App() {
     const visionAIResponses = await Promise.all(
       userPhotos.map(async (url) => {
         const response = await fetch(
-          "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA7CGhkhV3wm0OxJY_Sr2xdUvPBnECQepo",
+          `https://vision.googleapis.com/v1/images:annotate?key=${env.GOOGLE_VISION_API_KEY}`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -142,7 +143,7 @@ function App() {
     const visionAILabels = await Promise.all(
       userPhotos.map(async (url) => {
         const response = await fetch(
-          "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA7CGhkhV3wm0OxJY_Sr2xdUvPBnECQepo",
+          `https://vision.googleapis.com/v1/images:annotate?key=${env.GOOGLE_VISION_API_KEY}`,
           {
             method: "POST",
             body: JSON.stringify({
