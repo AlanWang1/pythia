@@ -3,6 +3,8 @@
 A fun fortune teller powered by Google Photos and Google Cloud Vision AI
 - Login with your google photos, and Pythia will give a horoscope style reading based off the contents of your google photos!
 
+![image](https://github.com/AlanWang1/pythia/assets/43789278/ba043f35-5340-4fbc-a559-9d3e05223972)
+
 
 ![image](https://github.com/AlanWang1/pythia/assets/43789278/e6aee92e-e7a4-4b8a-8e8e-ae1cbe19deaa)
 
