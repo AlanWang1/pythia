@@ -2,7 +2,7 @@
 
 A fun fortune teller powered by Google Photos and Google Cloud Vision AI
 - Login with your google photos, and Pythia will give a horoscope style reading based off the contents of your google photos!
-- Google Cloud Vision API is used to determine a horoscope style reading based off common items, colors, moods in your google photos
+- Google Cloud Vision API is used to give you a horoscope style reading based off common items, colors, moods that are in your google photos
 
 ![image](https://github.com/AlanWang1/pythia/assets/43789278/ba043f35-5340-4fbc-a559-9d3e05223972)
 
