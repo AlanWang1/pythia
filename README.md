@@ -9,5 +9,5 @@ A fun fortune teller powered by Google Photos and Google Cloud Vision AI
 
 ## Tech Stack
 
-ReactJS - frontend
-Google Cloud Platform - Google Photos Authentication, Google Cloud Vision API
+- ReactJS - frontend
+- Google Cloud Platform - Google Photos Authentication, Google Cloud Vision API
